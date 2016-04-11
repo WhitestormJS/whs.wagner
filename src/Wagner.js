@@ -19,7 +19,11 @@ WHS.Wagner = class Wagner {
 
 	    scope._composer = new WAGNER.Composer(scope._renderer);
 	    
-	    scope._composer.setSize(scope._settings.rWidth, scope._settings.rHeight);
+	    scope._composer.setSize( 
+            +(scope._settings.width * scope._settings.rWidth).toFixed(), 
+            +(scope._settings.height * scope._settings.rHeight).toFixed()
+        );
+
 	    scope._composer.autoClearColor = true;
 
 	    scope._composer.reset();
@@ -37,7 +41,7 @@ WHS.Wagner = class Wagner {
 
 	    'use strict';
 
-	    var target = api.extend(params, {
+	    var target = WHS.API.extend(params, {
 	        hex: 0x000000,
 	        near: 0.015,
 	        far: 1000,
@@ -47,7 +51,7 @@ WHS.Wagner = class Wagner {
 	    switch (type) {
 	        case "ZoomBlurPass":
 
-	            target = api.extend(target, { 
+	            target = WHS.API.extend(target, { 
 	                strength: .05,
 
 	                center: {
@@ -59,7 +63,7 @@ WHS.Wagner = class Wagner {
 
 	        case "MultiPassBloomPass":
 
-	            target = api.extend(target, { 
+	            target = WHS.API.extend(target, { 
 	                strength: .5,
 	                blurAmount: 1.32,
 	                applyZoomBlur: true,
@@ -76,7 +80,7 @@ WHS.Wagner = class Wagner {
 
 	        case "VignettePass":
 
-	            target = api.extend(target, { 
+	            target = WHS.API.extend(target, { 
 	                amount: 0.7,
 	                falloff: 0.2
 	            });
@@ -85,13 +89,13 @@ WHS.Wagner = class Wagner {
 
 	        case "DirectionalBlurPass":
 
-	            target = api.extend(target, { delta: 0.1 });
+	            target = WHS.API.extend(target, { delta: 0.1 });
 
 	            break;
 
 	        case "MotionBlurPass":
 
-	            target = api.extend(target, { delta: 0 });
+	            target = WHS.API.extend(target, { delta: 0 });
 
 	            break;
 
@@ -169,6 +173,6 @@ WHS.Wagner = class Wagner {
 
 }
 
-WHS.init.prototype.Wagner = function() {
+WHS.World.prototype.Wagner = function() {
 	return new WHS.Wagner( this );
 }
